@@ -24,6 +24,12 @@ class MyAccount extends Component {
         });
     }
 
+    logOut=async event=>{
+        event.preventDefault();
+        this.props.history.push("/login");
+      
+    }
+
     render() {
         console.log(this.state.profileDetail)
         const{email,password,name,location,gender,links, instrument,style,age,experience, sessions, contact, about}=this.state.profileDetail;
@@ -66,7 +72,7 @@ class MyAccount extends Component {
                     <button
                             id="logout"
                             className="btn btn-info"
-                          onClick={this.handleFormSubmit}
+                          onClick={this.logOut}
                             
                         >Log Out</button>
                     </Col>
