@@ -25,6 +25,14 @@ router.get('/:id', (req, res) => {
     });
   });
 
+router.post('/', (req, res) => {
+    console.log(req.body)
+    Profile.find({email:req.body.email, password: req.body.password}).then((profile) => {
+        console.log("profile is here", profile)
+        res.send(profile);
+   });
+  });
+
 router.post('/saveProfiles', (req, res) => {
     const avatar = gravatar.url(req.body.email, {
         s:'200',

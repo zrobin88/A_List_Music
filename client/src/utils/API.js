@@ -8,7 +8,13 @@ export default {
 
  getModalProfile: function(id){
    console.log("id showing", id)
-   return axios.get("api/profiles/" + id);
+   return axios.get("/api/profiles/" + id);
+ },
+ getProfile: function(email){
+   return axios.get("api/profiles/" + email)
+ },
+ login: function(data){
+   return axios.post("/api/profiles", data); 
  },
   
   deleteProfile: function(id) {

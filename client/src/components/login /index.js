@@ -53,18 +53,19 @@ class Login extends Component {
 
     handleFormSubmit = event => {
         event.preventDefault();
-      
-        this.setState({
-            email: "",
-            password: "",
-            errors: {},
-        
+        console.log(this.state);
+        const data = {email:this.state.email, password:this.state.password};
+        API.login(data).then(res => {
+            console.log('the res', res);
+            sessionStorage.setItem('userId', res.data[0]._id);
+            this.props.history.push("/myAccount");
+        }).catch(err => {
+            console.log('err', err);
         });
-
+       
         
     
         //set state to user's profile and get it from API 
-        window.location.pathname = "/myAccount"
     }
     render() {
        
@@ -77,7 +78,8 @@ class Login extends Component {
                             <input type="email" 
                                     class="form-control" 
                                     id="exampleFormControlInput1" 
-                                  
+                                    name ="email"
+                                    value={this.state.email}
                                     onChange={this.handleInputChange}
                                     placeholder="name@example.com" />
                         </div>
@@ -89,13 +91,13 @@ class Login extends Component {
                                     id="exampleFormControlInput1" 
                                     value= {this.state.password}
                                     onChange={this.handleInputChange}
-                                    placeholder="name@example.com" />
+                                    placeholder="Enter Password" />
                         </div>
                         <button
                             id="login"
                             className="btn btn-info"
-                          
-                            onClick={this.handleFormSubmit}
+                          onClick={this.handleFormSubmit}
+                            
                         >Log In</button>
 
                     </form>

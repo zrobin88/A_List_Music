@@ -48,7 +48,13 @@ app.use('/api/profiles', profileRouter);
 
 
 // Connect to the Mongo DB
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/AlistDB");
+const databaseUri = (process.env.MONGODB_URI || "mongodb://localhost/AlistDB");
+if(process.env.MONGODB_URI){
+  mongoose.connect(process.env.MONGODB_URI)
+}
+else{
+  mongoose.connect(databaseUri);
+}
 
 // Send every other request to the React app
 // Define any API routes before this runs
