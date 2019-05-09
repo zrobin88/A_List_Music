@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import Wrapper from "./components/Wrapper";
 import Login from "./components/login ";
 import MyAccount from "./components/MyAccount"
+import EditProfile from "./pages/EditProfile"
 function App() {
   return (
     <Router>
@@ -23,6 +24,7 @@ function App() {
           <Route exact path="/create-profile" component={CreateProfile} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/myAccount" component={MyAccount} />
+          <Route exact path="/editProfile" component={EditProfile} />
         </Wrapper>
        
       </div>

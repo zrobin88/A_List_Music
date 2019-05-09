@@ -26,8 +26,19 @@ class MyAccount extends Component {
 
     logOut=async event=>{
         event.preventDefault();
+        alert("See ya next time!")
         this.props.history.push("/login");
       
+    }
+    //finish delete
+    deleteProfile=event=>{
+        event.preventDefault();
+        alert("are you sure you want to delete your profile?")
+    }
+
+    handleFormSubmit=event=>{
+        event.preventDefault();
+        this.props.history.push("/editProfile");
     }
 
     render() {
@@ -60,21 +71,29 @@ class MyAccount extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col size="md-6">
+                    <Col size="md-4">
                     <button
-                            id="login"
+                            id="update-route"
                             className="btn btn-info"
                           onClick={this.handleFormSubmit}
                             
                         >Edit Profile</button>
                     </Col>
-                    <Col size="md-6">
+                    <Col size="md-4">
                     <button
                             id="logout"
                             className="btn btn-info"
                           onClick={this.logOut}
                             
                         >Log Out</button>
+                    </Col>
+                    <Col size="md-4">
+                    <button
+                            id="delete"
+                            className="btn btn-danger"
+                          onClick={this.deleteProfile}
+                            
+                        >Delete Profile</button>
                     </Col>
                 </Row>
 

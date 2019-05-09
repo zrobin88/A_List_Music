@@ -33,6 +33,27 @@ router.post('/', (req, res) => {
    });
   });
 
+//update a profile 
+router.post("/api/updateProfile/:id", function (req, res) {
+
+    Profile.find({_id:req.body.id}).then((profile) => {
+        console.log("profile is here now update it", profile)
+        res.send(profile);
+    })
+      .then(() => {
+        Profile.findOneAndUpdate({ _id: req.body.id }, { $set: { email, password, name, location, age, instrument, style, gender, links, sessions, experience, contact, about} })
+          .then((profile) => {
+            res.send(profile);
+          })
+        
+      })
+  });
+
+
+
+
+
+//gravatar
 router.post('/saveProfiles', (req, res) => {
     const avatar = gravatar.url(req.body.email, {
         s:'200',
@@ -49,28 +70,6 @@ router.post('/saveProfiles', (req, res) => {
         res.json(dbModel)
     }).catch(err => res.status(422).json(err));
 });
-
-//update a profile 
-router.post("/api/updateProfile/:id", function (req, res) {
-
-    let { name, contentArr } = req.body;
-
-    console.log('contents', contentArr);
-
-    Profile.findById({_id:req.params.id}).then((profile) => {
-        console.log("profile is here", profile)
-        res.send(profile);
-    })
-      .then(() => {
-        Profile.findOneAndUpdate({ _id: req.params.id }, { $set: { name, location, age, instrument, style, gender, links, sessions, experience, contact, about} })
-          .then((profile) => {
-            res.json(profile);
-          })
-          .catch((err) => {
-            console.log(err)
-          });
-      })
-  });
 
 
   
