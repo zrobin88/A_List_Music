@@ -19,6 +19,7 @@ class CreateProfile extends Component {
         links: "",
         gender: "",
         age: "",
+        role: "",
         instrument: "",
         style: "",
         experience: "",
@@ -41,6 +42,7 @@ class CreateProfile extends Component {
                     gender: "",
                     links: "",
                     age: 0,
+                    role:"",
                     instrument: "",
                     style: "",
                     experience: "",
@@ -76,6 +78,7 @@ class CreateProfile extends Component {
             image: this.state.image,
             links: this.state.links,
             age: this.state.age,
+            role: this.state.role,
             instrument: this.state.instrument,
             style: this.state.style,
             experience: this.state.experience,
@@ -105,7 +108,7 @@ class CreateProfile extends Component {
 
     render() {
         console.log('this.state', this.state);
-        const { errors, email, password, style, sessions, location, gender, name, links, contact, image } = this.state;
+        const { errors, email, password, style, sessions, role, location, gender, name, links, contact, image } = this.state;
         return (
             <div>
 
@@ -210,6 +213,20 @@ class CreateProfile extends Component {
                                         id="exampleFormControlInput1"
                                         placeholder="How old are you? Don't lie" />
                                 </div>
+                                  {/*Role Input */}
+                                  <div className="form-group">
+                                    <label for="exampleFormControlSelect1">What are you?</label>
+                                    <select value={role}
+                                        name="role"
+                                        onChange={this.handleInputChange} className="form-control" id="exampleFormControlSelect1" placeholder="Select One">
+                                        <option>Select One</option>
+                                        <option>I am a musician</option>
+                                        <option>I am a producer</option>
+                                        <option>I am a studio that needs session musicians</option>
+                                        <option>I am a venue that needs musicians</option>
+                                       
+                                    </select>
+                                </div>
                                 {/*Instrument Input */}
                                 <div className="form-group">
                                     <label for="exampleFormControlSelect1">What Do You Play?</label>
@@ -221,6 +238,7 @@ class CreateProfile extends Component {
                                         <option>Guitar</option>
                                         <option>Drums</option>
                                         <option>Bass</option>
+                                        
                                         <option>Piano/Keyboard/Organ</option>
                                         <option>Electronic/Sampling/Beats</option>
                                         <option>Wind Instruments</option>

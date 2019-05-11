@@ -36,6 +36,7 @@ class Query extends Component {
         sessions: "", 
         location: "",
         gender: "",
+        role: "",
         instrument: "",
         style: "",
         showProfiles: false,
@@ -114,7 +115,7 @@ class Query extends Component {
 
     render() {
         console.log('this.state', this.state);
-        const { errors, style, links, age, about, experience, location, name, image, instrument, contact, gender, profiles, showProfiles, showProfileModal, profileDetail} = this.state;
+        const { errors, style, links, age, about, experience, location, name, image, instrument, role, contact, gender, profiles, showProfiles, showProfileModal, profileDetail} = this.state;
         return (
             <div>
                 {(showProfileModal &&
@@ -139,6 +140,7 @@ class Query extends Component {
                                         <li className="list-group-item bg-dark">Gender: {profileDetail.gender}</li>
                                         <li className="list-group-item bg-dark">links: {profileDetail.links}</li>
                                         <li className="list-group-item bg-dark">Age: {profileDetail.age}</li>
+                                        <li className="list-group-item bg-dark">Role: {profileDetail.role}</li>
                                         <li className="list-group-item bg-dark">Instrument: {profileDetail.instrument}</li>
                                         <li className="list-group-item bg-dark">Style: {profileDetail.style}</li>
                                         <li className="list-group-item bg-dark">Avaliale for Sessions or Gigs: {profileDetail.sessions}</li>

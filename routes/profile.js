@@ -34,14 +34,14 @@ router.post('/', (req, res) => {
   });
 
 //update a profile 
-router.post("/api/updateProfile/:id", function (req, res) {
-
+router.post("/updateProfile/:id", function (req, res) {
+    console.log("CHECK THIS OUT",req.body)
     Profile.find({_id:req.body.id}).then((profile) => {
         console.log("profile is here now update it", profile)
         res.send(profile);
     })
       .then(() => {
-        Profile.findOneAndUpdate({ _id: req.body.id }, { $set: { email, password, name, location, age, instrument, style, gender, links, sessions, experience, contact, about} })
+        Profile.findOneAndUpdate({ _id: req.params.id }, { $set: req.body})
           .then((profile) => {
             res.send(profile);
           })
@@ -52,8 +52,6 @@ router.post("/api/updateProfile/:id", function (req, res) {
 
 
 
-
-//gravatar
 router.post('/saveProfiles', (req, res) => {
     const avatar = gravatar.url(req.body.email, {
         s:'200',
@@ -72,6 +70,15 @@ router.post('/saveProfiles', (req, res) => {
 });
 
 
+//delete 
+router.delete("/deleteProfile/:id", function (req, res) {
+
+    console.log('delete route triggered')
+
+    Profile.findByIdAndRemove(req.params.id).then(function (profile) {
+      res.json(profile);
+    });
+  });
   
 module.exports = router;
   

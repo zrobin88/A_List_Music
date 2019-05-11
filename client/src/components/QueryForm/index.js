@@ -25,22 +25,34 @@ const QueryForm = ({ handleInputChange }) => {
       <div className="form-group">
         <label for="exampleFormControlSelect1"></label>
         <select className="form-control mx-auto" id="style-input" name="style" onChange={handleInputChange}>
-          <option>Select a Style</option>
-          <option>Modern Rock</option>
-          <option>Metal</option>
-          <option>Extreme Metal</option>
-          <option>Hard Rock</option>
-          <option>Classic Rock</option>
-          <option>Punk Rock</option>
-          <option>Hip Hop</option>
-          <option>EDM</option>
-          <option>Jazz</option>
-          <option>Industrial</option>
-          <option>Hardcore</option>
-          <option>Classical</option>
-          <option>Gospel</option>
-          <option>Pop</option>
-          <option>Country</option>
+        <option>Select a Style</option>
+                                        <option>Alternative Rock</option>
+                                        <option>Black Metal</option>
+                                        <option>Blues</option>
+                                        <option>Classic Rock</option>
+                                        <option>Classical</option>
+                                        <option>Country</option>
+                                        <option>EDM</option>
+                                        <option>Extreme Metal</option>
+                                        <option>Gospel</option>
+                                        <option>Hardcore</option>
+                                        <option>Hard Rock</option>
+                                        <option>Hip Hop</option>
+                                        <option>Industrial</option>
+                                        <option>Jazz</option>
+                                        <option>K-Pop</option>
+                                        <option>Metal</option>
+                                        <option>Modern Rock</option>
+                                        <option>Pop</option>
+                                        <option>Power Metal</option>
+                                        <option>Prog Metal</option>
+                                        <option>Prog Rock</option>
+                                        <option>Punk Rock</option>
+                                        <option>R&B</option>
+                                        <option>Rockabilly</option>
+                                        <option>Singer/Songwriter</option>
+                                        <option>Ska</option>
+                                        <option>Thrash Metal</option>
         </select>
       </div>
 

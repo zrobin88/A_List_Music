@@ -10,6 +10,7 @@ const ProfileSchema = new Schema({
   links: { type: String},
   gender: {type: String}, 
   age: { type: Number, required: true},
+  role: {type: String, required: true},
   instrument: { type: String, required: true},
   style: { type: String, required: true},
   experience: { type: String, required: true},

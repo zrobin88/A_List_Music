@@ -30,10 +30,23 @@ class MyAccount extends Component {
         this.props.history.push("/login");
       
     }
-    //finish delete
+    //delete profile 
     deleteProfile=event=>{
+        const id = sessionStorage.getItem('userId');
         event.preventDefault();
-        alert("are you sure you want to delete your profile?")
+       if(window.confirm("are you sure you want to delete your profile?")){
+        API.deleteProfile(id).then(res=>{
+            alert("Profile Deleted");
+            console.log("the winds of shit are blowing")
+            this.setState({ profileDetail: res.data });
+            this.props.history.push("/")
+        }).catch(err => {
+            console.log('the err', err);
+        });
+    }
+    else{
+
+    }
     }
 
     handleFormSubmit=event=>{
@@ -43,7 +56,7 @@ class MyAccount extends Component {
 
     render() {
         console.log(this.state.profileDetail)
-        const{email,password,name,location,gender,links, instrument,style,age,experience, sessions, contact, about}=this.state.profileDetail;
+        const{email,password,name,location,gender,links, role,instrument,style,age,experience, sessions, contact, about}=this.state.profileDetail;
         return (
             <Container>
                 <Row>
@@ -59,6 +72,7 @@ class MyAccount extends Component {
                                 <li className="list-group-item"><strong>Location: </strong>{location} </li>
                                 <li className="list-group-item"><strong>Gender: </strong> {gender}</li>
                                 <li className="list-group-item"><strong>links: </strong> {links}</li>
+                                <li className="list-group-item"><strong>Role: </strong> {role}</li>
                                 <li className="list-group-item"><strong>Age: </strong> {age} </li>
                                 <li className="list-group-item"><strong>Instrument: </strong>{instrument}</li>
                                 <li className="list-group-item"><strong>Style: </strong>{style} </li>

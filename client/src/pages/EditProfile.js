@@ -53,6 +53,7 @@ class EditProfile extends Component {
     //         gender: this.state.gender,
     //         links: this.state.links,
     //         age: this.state.age,
+    //         role: this.state.role, 
     //         instrument: this.state.instrument,
     //         style: this.state.style,
     //         experience: this.state.experience,
@@ -79,12 +80,11 @@ class EditProfile extends Component {
 
     handleUpdate = event => {
         event.preventDefault();
-        if (this.state.style === '') {
-            return this.setState({ errors: { styleEmpty: 'You must Select a style' } });
-        }
+        
         this.setState({ errors: {} });
         //update profile 
-        API.saveProfile({
+        API.updateProfile({
+            id: sessionStorage.getItem('userId'),
             email: this.state.email,
             password: this.state.password, 
             name: this.state.name,
@@ -93,6 +93,7 @@ class EditProfile extends Component {
             image: this.state.image,
             links: this.state.links,
             age: this.state.age,
+            role: this.state.role, 
             instrument: this.state.instrument,
             style: this.state.style,
             experience: this.state.experience,
@@ -100,10 +101,13 @@ class EditProfile extends Component {
             contact: this.state.contact,
             about: this.state.about
         })
-            .then(res => console.log('the results', res))
+            .then(res =>{
+                 console.log('congrats you made it this far...', res)
+                 this.setState({ profileDetail: res.data })
+                })
             .catch(err => console.log(err));
             alert("Profile Updated!")
-            this.props.history.push("/")
+            //this.props.history.push("/")
     };
 
     // fileSelectedHandler = event =>{
@@ -328,7 +332,7 @@ class EditProfile extends Component {
                                         id="exampleFormControlInput1"
                                         placeholder={this.state.profileDetail.about} className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                                 </div>
-                                <button className="btn btn-info" onClick={this.handleUpdate}>Submit</button>
+                                <button className="btn btn-info" onClick={this.handleUpdate}>Update</button>
                             </form>
 
                         </Col>
