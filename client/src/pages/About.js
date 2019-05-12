@@ -4,7 +4,7 @@ import Container from "../components/Container";
 import Row from "../components/Row";
 import Col from "../components/Col";
 import "./style.css"
-
+import Jumbotron from "../components/Jumbotron"
 
 function About() {
   return (
@@ -14,29 +14,12 @@ function About() {
         
       </AlistHeader>
         <Container style={{ marginTop: 30 }}>
+          
           <Row>
-            <Col size="md-12">
-
-            </Col>
+            <Jumbotron />
+     
           </Row>
-          <Row>
-            <Col size="md-2">
-            </Col>
-            <Col size="md-2">
-
-            </Col>
-            <Col size="md-2">
-            </Col>
-            <Col size="md-2">
-
-            </Col>
-            <Col size="md-2">
-
-            </Col>
-            <Col size="md-2">
-            </Col>
-          </Row>
-
+        
 
         </Container>
     </div>
