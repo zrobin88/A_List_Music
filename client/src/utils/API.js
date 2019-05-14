@@ -27,6 +27,6 @@ export default {
   },
   updateProfile: function(id){
     console.log("LOOK HERE ZACK", id)
-    return axios.post("/api/profiles/updateProfile/" +id)
+    return axios.post("/api/profiles/updateProfile/" + id);
   }
 };

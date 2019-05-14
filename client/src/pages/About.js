@@ -16,7 +16,7 @@ function About() {
         <Container style={{ marginTop: 30 }}>
           
           <Row>
-            <Jumbotron />
+          <Jumbotron />
      
           </Row>
         
