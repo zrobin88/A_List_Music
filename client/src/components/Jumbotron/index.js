@@ -16,7 +16,9 @@ import "./style.css";
 // //img array with random picker 
 // const imgArr = [img01, img02, img03, img04, img05, img06, img07, img08, img09, img10]
 // const pickedImage = imgArr[Math.floor(Math.random() * imgArr.length)];
-
+function handleFromSubmit(event){
+    window.location.assign("/create-profile")
+}
 
 function Jumbotron({ children }) {
   return (
@@ -44,7 +46,7 @@ function Jumbotron({ children }) {
               <h1 className="display-4">Step 1: Create a Profile</h1>
     
               <p className="card-text">Create a profile with all of your information such as location, age, instrument, style etc in order to be discovered by others</p>
-              <button className="btn btn-primary" id="button" href="/create-profile">Get Started! </button>
+              <button className="btn btn-primary" id="button" onClick={handleFromSubmit}>Get Started! </button>
             
             </div>
           </div>
