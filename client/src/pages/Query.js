@@ -36,6 +36,7 @@ class Query extends Component {
         sessions: "", 
         location: "",
         gender: "",
+        isLooking: "",
         role: "",
         instrument: "",
         style: "",
@@ -141,6 +142,7 @@ class Query extends Component {
                                         <li className="list-group-item bg-dark">links: {profileDetail.links}</li>
                                         <li className="list-group-item bg-dark">Age: {profileDetail.age}</li>
                                         <li className="list-group-item bg-dark">Role: {profileDetail.role}</li>
+                                        <li className="list-group-item bg-dark">Status: {profileDetail.isLooking}</li>
                                         <li className="list-group-item bg-dark">Instrument: {profileDetail.instrument}</li>
                                         <li className="list-group-item bg-dark">Style: {profileDetail.style}</li>
                                         <li className="list-group-item bg-dark">Avaliale for Sessions or Gigs: {profileDetail.sessions}</li>

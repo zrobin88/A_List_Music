@@ -18,6 +18,7 @@ class CreateProfile extends Component {
         image: "",
         links: "",
         gender: "",
+        isLooking: "",
         age: "",
         role: "",
         instrument: "",
@@ -41,6 +42,7 @@ class CreateProfile extends Component {
                     image: "",
                     gender: "",
                     links: "",
+                    isLooking: "",
                     age: 0,
                     role:"",
                     instrument: "",
@@ -77,6 +79,7 @@ class CreateProfile extends Component {
             gender: this.state.gender,
             image: this.state.image,
             links: this.state.links,
+            isLooking: this.state.isLooking,
             age: this.state.age,
             role: this.state.role,
             instrument: this.state.instrument,
@@ -108,7 +111,7 @@ class CreateProfile extends Component {
 
     render() {
         console.log('this.state', this.state);
-        const { errors, email, password, style, sessions, role, location, gender, name, links, contact, image } = this.state;
+        const { errors, email, password, style, sessions, isLooking, role, location, gender, name, links, contact, image } = this.state;
         return (
             <div>
 
@@ -190,6 +193,20 @@ class CreateProfile extends Component {
                                         placeholder="Show us your ugly mug" />
                                        
                                 </div>
+                                 {/*Status Input */}
+                                 <div className="form-group">
+                                    <label for="exampleFormControlSelect1">Are you currently looking for a project?</label>
+                                    <select value={isLooking}
+                                        name="isLooking"
+                                        onChange={this.handleInputChange} className="form-control" id="exampleFormControlSelect1" placeholder="Select One">
+                                        <option>Select One</option>
+                                        <option>Yes, I am looking for a project</option>
+                                        <option>No, I am not currently looking</option>
+            
+                                       
+                                    </select>
+                                </div>
+                               
                                 {/*Links Input */}
                                 <div className="form-group">
                                     <label for="exampleFormControlInput1">Links to your Music</label>

@@ -17,6 +17,7 @@ class EditProfile extends Component {
         location: "",
         image: "",
         links: "",
+        isLooking: "",
         gender: "",
         age: "",
         instrument: "",
@@ -42,32 +43,7 @@ class EditProfile extends Component {
         });
     }
 
-    // loadProfiles = () => {
-    //     //use getModalProfile route to get the user profile info by id 
-    //     API.getModalProfile({
-    //         email: this.state.email,
-    //         password: this.state.password,
-    //         name: this.state.name,
-    //         location: this.state.location,
-    //         image: this.state.image,
-    //         gender: this.state.gender,
-    //         links: this.state.links,
-    //         age: this.state.age,
-    //         role: this.state.role, 
-    //         instrument: this.state.instrument,
-    //         style: this.state.style,
-    //         experience: this.state.experience,
-    //         sessions: this.state.sessions, 
-    //         contact: this.state.contact,
-    //         about: this.state.about
-    //     })
-    //     .then(res => {
-    //         //if(instrument === instrumentKey && style === styleKey){
-
-    //         this.setState({ profiles: res.data })
-    //         // }
-    //     }).catch(err => console.log(err));
-    // };
+  
 
     handleInputChange = event => {
         // console.log('the name', event.target.name);
@@ -90,6 +66,7 @@ class EditProfile extends Component {
             name: this.state.name,
             location: this.state.location,
             gender: this.state.gender,
+            isLooking: this.state.isLooking,
             image: this.state.image,
             links: this.state.links,
             age: this.state.age,
@@ -127,7 +104,7 @@ class EditProfile extends Component {
 
 
     render() {
-        const{email,password,name,location,gender,links, image,errors,instrument,style,age,experience, sessions, contact, about}=this.state;
+        const{email,password,name,location,gender,links, isLooking, image,errors,instrument,style,age,experience, sessions, contact, about}=this.state;
         return (
             <div>
 
@@ -208,6 +185,19 @@ class EditProfile extends Component {
                                         id="exampleFormControlInput1"
                                         placeholder={this.state.profileDetail.image} />
                                        
+                                </div>
+                                 {/*Status Input */}
+                                 <div className="form-group">
+                                    <label for="exampleFormControlSelect1">Are you currently looking for a project?</label>
+                                    <select value={isLooking}
+                                        name="isLooking"
+                                        onChange={this.handleInputChange} className="form-control" id="exampleFormControlSelect1" placeholder={this.state.profileDetail.isLooking}>
+                                        <option>Select One</option>
+                                        <option>Yes</option>
+                                        <option>No</option>
+            
+                                       
+                                    </select>
                                 </div>
                                 {/*Links Input */}
                                 <div className="form-group">
