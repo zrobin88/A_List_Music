@@ -56,7 +56,7 @@ class MyAccount extends Component {
 
     render() {
         console.log(this.state.profileDetail)
-        const{email,password,name,location,gender,links, role,instrument,style,age,experience, sessions, contact, about}=this.state.profileDetail;
+        const{email,password,name,location,gender,links, isLooking, role,instrument,style,age,experience, sessions, contact, about}=this.state.profileDetail;
         return (
             <Container>
                 <Row>
@@ -71,6 +71,7 @@ class MyAccount extends Component {
                                
                                 <li className="list-group-item"><strong>Location: </strong>{location} </li>
                                 <li className="list-group-item"><strong>Gender: </strong> {gender}</li>
+                                <li className="list-group-item"><strong>Status: </strong> {isLooking}</li>
                                 <li className="list-group-item"><strong>links: </strong> {links}</li>
                                 <li className="list-group-item"><strong>Role: </strong> {role}</li>
                                 <li className="list-group-item"><strong>Age: </strong> {age} </li>
