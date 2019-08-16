@@ -111,12 +111,16 @@ class Query extends Component {
         })
             .then(res => this.setState({ profiles: res.data }))
             .catch(err => console.log(err));
+            if(!this.state.profiles){
+                console.log("Loading");
+                // document.getElementById('resTable'),innerHTML="Loading"
+            }
 
     };
 
     render() {
         console.log('this.state', this.state);
-        const { errors, style, links, age, about, experience, location, name, image, instrument, role, contact, gender, profiles, showProfiles, showProfileModal, profileDetail} = this.state;
+        const { profiles, showProfiles, showProfileModal, profileDetail} = this.state;
         return (
             <div>
                 {(showProfileModal &&

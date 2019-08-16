@@ -17,7 +17,7 @@ function ProfileModal(props){
                                 </div>
                                 <div className="modal-body">
 
-                                    <img src="..." className="card-img-top" alt="..." />
+                                    <img src={faker.image.avatar} className="card-img-top" alt="..." />
 
                                     <ul className="list-group list-group-flush" >
 

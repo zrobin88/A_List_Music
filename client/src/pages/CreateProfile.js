@@ -8,13 +8,14 @@ import API from "../utils/API"
 import FormBtn from "../components/FormBtn"
 import Hero from "../components/Hero"
 import axios from "axios";
-
+const API_Key = "UjKHCKQzj2N4Sir70VVloAR2AVB0KdlG"
 class CreateProfile extends Component {
     state = {
         email: "",
         password: "",
         name: "",
-        location: "",
+        city: "",
+        state: "",
         image: "",
         links: "",
         gender: "",
@@ -24,41 +25,34 @@ class CreateProfile extends Component {
         instrument: "",
         style: "",
         experience: "",
-        sessions: "", 
+        sessions: "",
         contact: "",
         about: "",
+        lat: null,
+        lng: null,
         selectedFile: null,
         errors: {}
     }
-
-    loadProfiles = () => {
-        API.getProfiles()
-            .then(res =>
-                this.setState({
-                    email: "",
-                    password: "",
-                    name: "",
-                    location: "",
-                    image: "",
-                    gender: "",
-                    links: "",
-                    isLooking: "",
-                    age: 0,
-                    role:"",
-                    instrument: "",
-                    style: "",
-                    experience: "",
-                    sessions: "", 
-                    contact: "",
-                    about: ""
+    componentDidMount() {
+        window.navigator.geolocation.getCurrentPosition(
+            position => this.setState({ lat: position.coords.latitude, lng: position.coords.longitude }, () => {
+                console.log(this.state.lat)
+                axios.get(`http://www.mapquestapi.com/geocoding/v1/reverse?key=${API_Key}&location=${this.state.lat},${this.state.lng}&includeRoadMetadata=true&includeNearestIntersection=true`).then(res => {
+                    const userState = res.data.results[0].locations[0].adminArea3;
+                    const userCity = res.data.results[0].locations[0].adminArea5;
+                    console.log(userCity)
+                    console.log(userState)
+                    this.setState({city: userCity, state: userState})
                 })
-            )
-            .catch(err => console.log(err));
-    };
+            }),
+            err => this.setState({ errorMessage: err.message }),
+
+        )
+
+    }
 
     handleInputChange = event => {
-        console.log('the name', event.target.name);
-        console.log('the value', event.target.value);
+
         const { name, value } = event.target;
         this.setState({
             [name]: value
@@ -73,7 +67,7 @@ class CreateProfile extends Component {
         this.setState({ errors: {} });
         API.saveProfile({
             email: this.state.email,
-            password: this.state.password, 
+            password: this.state.password,
             name: this.state.name,
             location: this.state.location,
             gender: this.state.gender,
@@ -85,33 +79,46 @@ class CreateProfile extends Component {
             instrument: this.state.instrument,
             style: this.state.style,
             experience: this.state.experience,
-            sessions: this.state.sessions, 
+            sessions: this.state.sessions,
             contact: this.state.contact,
             about: this.state.about
         })
             .then(res => console.log('the results', res))
             .catch(err => console.log(err));
-            alert("Profile created! Now go out there and make some music!")
-            window.location.assign("/");
+        alert("Profile created! Now go out there and make some music!")
+        window.location.assign("/");
     };
 
-    fileSelectedHandler = event =>{
+    fileSelectedHandler = event => {
         //log the event to make sure the correct file is targeted
         console.log(event.target.files[0]);
         this.setState({
-        
+
             //image: event.target.files[0]
         })
     }
 
-    fileUploadHandler=()=>{
+    fileUploadHandler = () => {
         //not sure if this is the correct route 
         axios.post("api/profiles/uploads");
     }
 
+
+    //method for geolocation
+
+    findUser = () => {
+
+        axios.get(`http://www.mapquestapi.com/geocoding/v1/reverse?key=${API_Key}&location=${this.state.lat},${this.state.lng}&includeRoadMetadata=true&includeNearestIntersection=true`).then(res => {
+            const location = res.data.results[0].locations[0]
+            const coordinates = res.data.results[0].providedLocation.latLng
+            console.log(location)
+            console.log(coordinates)
+        })
+    }
+
     render() {
         console.log('this.state', this.state);
-        const { errors, email, password, style, sessions, isLooking, role, location, gender, name, links, contact, image } = this.state;
+        const { errors, email, password, style, sessions, isLooking, role, gender, name, links, contact, image } = this.state;
         return (
             <div>
 
@@ -133,8 +140,8 @@ class CreateProfile extends Component {
                                         id="exampleFormControlInput1"
                                         placeholder="Enter Your Email Address" />
                                 </div>
-                                 {/*Password Input */}
-                                 <div className="form-group">
+                                {/*Password Input */}
+                                <div className="form-group">
                                     <label for="exampleFormControlInput1">Password</label>
                                     <input type="text"
                                         value={password}
@@ -144,8 +151,8 @@ class CreateProfile extends Component {
                                         id="exampleFormControlInput1"
                                         placeholder="Choose a Password" />
                                 </div>
-                                 {/*Name Input */}
-                                 <div className="form-group">
+                                {/*Name Input */}
+                                <div className="form-group">
                                     <label for="exampleFormControlInput1">Name</label>
                                     <input type="text"
                                         value={name}
@@ -157,15 +164,15 @@ class CreateProfile extends Component {
                                 </div>
                                 {/*Location Input */}
                                 <div className="form-group">
-                                    <label for="exampleFormControlInput1">Location </label>
-                                    <p id="location-instruction">(Please spell your city completely followed by your state's abbreviation. Example: Los Anngeles, CA or Ft Lauderdale, FL)</p>
-                                    <input type="text"
-                                        value={location}
+                                    <label for="exampleFormControlInput1">Location: </label>
+                                    <p id="location-instruction">{this.state.city +" "+ this.state.state}</p>
+                                    {/* <h5 type="text"
+                                        
                                         name="location"
                                         onChange={this.handleInputChange}
                                         className="form-control"
                                         id="exampleFormControlInput1"
-                                        placeholder="Where are you located?" />
+                                        placeholder="Where are you located?" /> */}
                                 </div>
                                 {/*Gender Input */}
                                 <div className="form-group">
@@ -191,10 +198,10 @@ class CreateProfile extends Component {
                                         className="form-control"
                                         id="exampleFormControlInput1"
                                         placeholder="Show us your ugly mug" />
-                                       
+
                                 </div>
-                                 {/*Status Input */}
-                                 <div className="form-group">
+                                {/*Status Input */}
+                                <div className="form-group">
                                     <label for="exampleFormControlSelect1">Are you currently looking for a project?</label>
                                     <select value={isLooking}
                                         name="isLooking"
@@ -202,11 +209,11 @@ class CreateProfile extends Component {
                                         <option>Select One</option>
                                         <option>Yes, I am looking for a project</option>
                                         <option>No, I am not currently looking</option>
-            
-                                       
+
+
                                     </select>
                                 </div>
-                               
+
                                 {/*Links Input */}
                                 <div className="form-group">
                                     <label for="exampleFormControlInput1">Links to your Music</label>
@@ -230,8 +237,8 @@ class CreateProfile extends Component {
                                         id="exampleFormControlInput1"
                                         placeholder="How old are you? Don't lie" />
                                 </div>
-                                  {/*Role Input */}
-                                  <div className="form-group">
+                                {/*Role Input */}
+                                <div className="form-group">
                                     <label for="exampleFormControlSelect1">What are you?</label>
                                     <select value={role}
                                         name="role"
@@ -241,7 +248,7 @@ class CreateProfile extends Component {
                                         <option>I am a producer</option>
                                         <option>I am a studio that needs session musicians</option>
                                         <option>I am a venue that needs musicians</option>
-                                       
+
                                     </select>
                                 </div>
                                 {/*Instrument Input */}
@@ -255,7 +262,7 @@ class CreateProfile extends Component {
                                         <option>Guitar</option>
                                         <option>Drums</option>
                                         <option>Bass</option>
-                                        
+
                                         <option>Piano/Keyboard/Organ</option>
                                         <option>Electronic/Sampling/Beats</option>
                                         <option>Wind Instruments</option>
@@ -296,7 +303,7 @@ class CreateProfile extends Component {
                                         <option>Singer/Songwriter</option>
                                         <option>Ska</option>
                                         <option>Thrash Metal</option>
-                                     </select>
+                                    </select>
                                     <p className="text-danger">{Object.keys(errors).length > 0 ? errors.styleEmpty : null}</p>
                                 </div>
                                 {/*Experience Input */}
@@ -323,7 +330,7 @@ class CreateProfile extends Component {
                                         <option>No, I'm looking for a full time band</option>
 
                                     </select>
-                                    </div>
+                                </div>
                                 {/*Contact Input */}
                                 <div className="form-group">
                                     <label for="exampleFormControlInput1">Contact Info</label>
