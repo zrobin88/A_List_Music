@@ -36,7 +36,7 @@ class CreateProfile extends Component {
         window.navigator.geolocation.getCurrentPosition(
             position => this.setState({ lat: position.coords.latitude, lng: position.coords.longitude }, () => {
                 console.log(this.state.lat)
-                axios.get(`http://www.mapquestapi.com/geocoding/v1/reverse?key=${API_Key}&location=${this.state.lat},${this.state.lng}&includeRoadMetadata=true&includeNearestIntersection=true`).then(res => {
+                axios.get(`https://www.mapquestapi.com/geocoding/v1/reverse?key=${API_Key}&location=${this.state.lat},${this.state.lng}&includeRoadMetadata=true&includeNearestIntersection=true`).then(res => {
                     const st = res.data.results[0].locations[0].adminArea3;
                     const userCity = res.data.results[0].locations[0].adminArea5;
 
