@@ -8,10 +8,9 @@ const gravatar = require('gravatar');
 router.post('/getProfiles', (req, res) => {
     // PARSE QUERY STRING HERE WITH LIBRARY
     console.log('req.body', req.body);
-    //const values = queryString.parse()
     
-    // DETERMINE WHETHER YOU HAVE QUERIES AND IF SO USE RIGHT MONGOOSE METHOD
-  Profile.find({ instrument: req.body.instrument, style: req.body.style, gender: req.body.gender })
+ 
+  Profile.find({ instrument: req.body.instrument, style: req.body.style, gender: req.body.gender, location:req.body.location })
   .then((values) => {
       console.log('the values', values);
       res.send(values);
@@ -51,7 +50,7 @@ router.post("/updateProfile/:id", function (req, res) {
 
 
 
-
+//save profile 
 router.post('/saveProfiles', (req, res) => {
     const avatar = gravatar.url(req.body.email, {
         s:'200',
@@ -65,8 +64,8 @@ router.post('/saveProfiles', (req, res) => {
         updatedBody = req.body;
     }
     Profile.create(updatedBody).then(dbModel => {
-        res.json(dbModel)
-    }).catch(err => res.status(422).json(err));
+        res.json(dbModel), console.log('success'),console.log(dbModel)
+    }).catch(err => console.log(err));
 });
 
 

@@ -40,6 +40,7 @@ class Query extends Component {
         role: "",
         instrument: "",
         style: "",
+   
         showProfiles: false,
         showProfileModal: false
     }
@@ -80,8 +81,10 @@ class Query extends Component {
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
-            [name]: value
+            [name]: value,
+           
         });
+        console.log(name)
     };
 
     
@@ -108,6 +111,8 @@ class Query extends Component {
             style: this.state.style, 
             gender: this.state.gender,
             location: this.state.location
+            // city: this.state.city,
+            // userState: this.state.userState
         })
             .then(res => this.setState({ profiles: res.data }))
             .catch(err => console.log(err));
@@ -219,14 +224,15 @@ class Query extends Component {
                                                 </td>
                                                 <td>
                                                     <strong>
-                                                        {profile.location}
+                                                        {profile.city}
                                                     </strong>
                                                 </td>
                                                 <td>
                                                     <strong>
-                                                        {profile.instrument}
+                                                        {profile.location}
                                                     </strong>
                                                 </td>
+                                               
                                                 <td>
                                                     <strong>
                                                         {profile.style}

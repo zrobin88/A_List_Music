@@ -6,6 +6,7 @@ const ProfileSchema = new Schema({
   password: {type: String, required: true},
   name: { type: String, required: true },
   location: { type: String, required: true },
+  
   isLooking: {type: String, required: true},
   image: { type: String},
   links: { type: String},

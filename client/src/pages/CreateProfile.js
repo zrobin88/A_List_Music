@@ -14,8 +14,7 @@ class CreateProfile extends Component {
         email: "",
         password: "",
         name: "",
-        city: "",
-        state: "",
+        location: "",
         image: "",
         links: "",
         gender: "",
@@ -38,11 +37,12 @@ class CreateProfile extends Component {
             position => this.setState({ lat: position.coords.latitude, lng: position.coords.longitude }, () => {
                 console.log(this.state.lat)
                 axios.get(`http://www.mapquestapi.com/geocoding/v1/reverse?key=${API_Key}&location=${this.state.lat},${this.state.lng}&includeRoadMetadata=true&includeNearestIntersection=true`).then(res => {
-                    const userState = res.data.results[0].locations[0].adminArea3;
+                    const st = res.data.results[0].locations[0].adminArea3;
                     const userCity = res.data.results[0].locations[0].adminArea5;
-                    console.log(userCity)
-                    console.log(userState)
-                    this.setState({city: userCity, state: userState})
+
+                    // this.setState({city: userCity, userState: st})
+                    this.setState({ location: userCity + " " + st })
+                    console.log(this.state.location)
                 })
             }),
             err => this.setState({ errorMessage: err.message }),
@@ -70,6 +70,8 @@ class CreateProfile extends Component {
             password: this.state.password,
             name: this.state.name,
             location: this.state.location,
+            // city: this.state.city,
+            // state: this.state.userState,
             gender: this.state.gender,
             image: this.state.image,
             links: this.state.links,
@@ -86,7 +88,7 @@ class CreateProfile extends Component {
             .then(res => console.log('the results', res))
             .catch(err => console.log(err));
         alert("Profile created! Now go out there and make some music!")
-        window.location.assign("/");
+        // window.location.assign("/");
     };
 
     fileSelectedHandler = event => {
@@ -106,19 +108,11 @@ class CreateProfile extends Component {
 
     //method for geolocation
 
-    findUser = () => {
 
-        axios.get(`http://www.mapquestapi.com/geocoding/v1/reverse?key=${API_Key}&location=${this.state.lat},${this.state.lng}&includeRoadMetadata=true&includeNearestIntersection=true`).then(res => {
-            const location = res.data.results[0].locations[0]
-            const coordinates = res.data.results[0].providedLocation.latLng
-            console.log(location)
-            console.log(coordinates)
-        })
-    }
 
     render() {
         console.log('this.state', this.state);
-        const { errors, email, password, style, sessions, isLooking, role, gender, name, links, contact, image } = this.state;
+        const { errors, email, password, style, sessions, location, isLooking, role, gender, name, links, contact, image } = this.state;
         return (
             <div>
 
@@ -164,15 +158,26 @@ class CreateProfile extends Component {
                                 </div>
                                 {/*Location Input */}
                                 <div className="form-group">
-                                    <label for="exampleFormControlInput1">Location: </label>
-                                    <p id="location-instruction">{this.state.city +" "+ this.state.state}</p>
-                                    {/* <h5 type="text"
+                                    <label for="exampleFormControlSelect1">Location: </label>
+                                    {/* <p id="location-instruction" value={this.state.location}><strong>{this.state.location}</strong></p>
+                                    <h5 type="text"
                                         
                                         name="location"
                                         onChange={this.handleInputChange}
                                         className="form-control"
                                         id="exampleFormControlInput1"
                                         placeholder="Where are you located?" /> */}
+                                    <select  
+                                            id="exampleFormControlSelect2"
+                                            onChange={this.handleInputChange}
+                                            className='form-control'
+                                            name='location'
+                                            value={location}
+                                            placeholder='Where are you located?'>
+                                        <option>{location}</option>
+                                        <option>Enter another location</option>
+                                       
+                                    </select>
                                 </div>
                                 {/*Gender Input */}
                                 <div className="form-group">

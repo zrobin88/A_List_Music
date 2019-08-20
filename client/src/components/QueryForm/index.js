@@ -70,9 +70,15 @@ const QueryForm = ({ handleInputChange }) => {
       {/*Location Input */}
       <div class="form-group">
         <label for="exampleInputEmail1"></label>
-        <input type="text" class="form-control"  id="location-input"aria-describedby="emailHelp"onChange={handleInputChange} placeholder="Enter a City and State"/>
+        <input type="text" class="form-control" name='location' id="location-input"aria-describedby="emailHelp"onChange={handleInputChange} placeholder="Enter a City and State"/>
        
       </div>
+       {/*State Input */}
+       {/* <div class="form-group">
+        <label for="exampleInputEmail1"></label>
+        <input type="text" class="form-control"  id="location-input"aria-describedby="emailHelp"onChange={handleInputChange} placeholder="Please Enter State (Example: Florida - FL)"/>
+       
+      </div> */}
    
       </form>
       );

@@ -3,7 +3,7 @@ import Container from "../Container";
 import Row from "../Row";
 import Col from "../Col";
 import API from "../../utils/API";
-import Card from "../Card"
+
 import "./style.css";
 
 class MyAccount extends Component {
