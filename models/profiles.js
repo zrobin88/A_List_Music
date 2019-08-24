@@ -6,7 +6,9 @@ const ProfileSchema = new Schema({
   password: {type: String, required: true},
   name: { type: String, required: true },
   location: { type: String, required: true },
-  
+  city:{type: String},
+  userState:{type: String},
+  altLocation:{type: String},
   isLooking: {type: String, required: true},
   image: { type: String},
   links: { type: String},

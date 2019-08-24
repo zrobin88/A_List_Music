@@ -21,12 +21,15 @@ class CreateProfile extends Component {
         isLooking: "",
         age: "",
         role: "",
+        city: "",
+        userState: "",
         instrument: "",
         style: "",
         experience: "",
         sessions: "",
         contact: "",
         about: "",
+        // altLocation: "",
         lat: null,
         lng: null,
         selectedFile: null,
@@ -41,7 +44,7 @@ class CreateProfile extends Component {
                     const userCity = res.data.results[0].locations[0].adminArea5;
 
                     // this.setState({city: userCity, userState: st})
-                    this.setState({ location: userCity + " " + st })
+                    this.setState({ location: userCity + " " + st, city: userCity, userState: st })
                     console.log(this.state.location)
                 })
             }),
@@ -64,14 +67,15 @@ class CreateProfile extends Component {
         if (this.state.style === '') {
             return this.setState({ errors: { styleEmpty: 'You must Select a style' } });
         }
+        
         this.setState({ errors: {} });
         API.saveProfile({
             email: this.state.email,
             password: this.state.password,
             name: this.state.name,
             location: this.state.location,
-            // city: this.state.city,
-            // state: this.state.userState,
+            city: this.state.city,
+            state: this.state.userState,
             gender: this.state.gender,
             image: this.state.image,
             links: this.state.links,
@@ -83,7 +87,8 @@ class CreateProfile extends Component {
             experience: this.state.experience,
             sessions: this.state.sessions,
             contact: this.state.contact,
-            about: this.state.about
+            about: this.state.about,
+            // altLocation: this.state.altLocation
         })
             .then(res => console.log('the results', res))
             .catch(err => console.log(err));
@@ -96,7 +101,7 @@ class CreateProfile extends Component {
         console.log(event.target.files[0]);
         this.setState({
 
-            //image: event.target.files[0]
+            // image: event.target.files[0]
         })
     }
 
@@ -106,13 +111,11 @@ class CreateProfile extends Component {
     }
 
 
-    //method for geolocation
-
 
 
     render() {
         console.log('this.state', this.state);
-        const { errors, email, password, style, sessions, location, isLooking, role, gender, name, links, contact, image } = this.state;
+        const { errors, email,  password, style, sessions, location, isLooking, role, gender, name, links, contact, image } = this.state;
         return (
             <div>
 
@@ -179,6 +182,18 @@ class CreateProfile extends Component {
                                        
                                     </select>
                                 </div>
+                               {/*Alt Location Input */}
+                               {/* <div className="form-group">
+                                    <label for="exampleFormControlInput1">Alternate Location</label>
+                                    <input type="text"
+                                        value={altLocation}
+                                        name="altLocation"
+                                        onChange={this.handleInputChange}
+                                        className="form-control"
+                                        id="exampleFormControlInput1"
+                                        placeholder="OR enter another location" />
+                                </div> */}
+                          
                                 {/*Gender Input */}
                                 <div className="form-group">
                                     <label for="exampleFormControlSelect1">What Gender Are You?</label>
@@ -193,7 +208,7 @@ class CreateProfile extends Component {
                                     </select>
                                 </div>
                                 {/*Image Input */}
-                                <div className="form-group">
+                                {/* <div className="form-group">
                                     <label for="exampleFormControlInput1">Image</label>
                                     <input type="file"
                                         value={image}
@@ -204,7 +219,7 @@ class CreateProfile extends Component {
                                         id="exampleFormControlInput1"
                                         placeholder="Show us your ugly mug" />
 
-                                </div>
+                                </div> */}
                                 {/*Status Input */}
                                 <div className="form-group">
                                     <label for="exampleFormControlSelect1">Are you currently looking for a project?</label>
@@ -212,8 +227,8 @@ class CreateProfile extends Component {
                                         name="isLooking"
                                         onChange={this.handleInputChange} className="form-control" id="exampleFormControlSelect1" placeholder="Select One">
                                         <option>Select One</option>
-                                        <option>Yes, I am looking for a project</option>
-                                        <option>No, I am not currently looking</option>
+                                        <option value='true'>Yes, I am looking for a project</option>
+                                        <option value='false'>No, I am not currently looking</option>
 
 
                                     </select>

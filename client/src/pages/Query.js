@@ -12,18 +12,18 @@ import query from 'query-string'
 //image variables 
 const img01 = "https://images.unsplash.com/photo-1471614654469-512ee6a4397a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80";
 const img02 = "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80";
-const img03 ="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80";
-const img04 ="https://images.unsplash.com/photo-1478737270239-2f02b77fc618?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80";
-const img05 ="https://images.unsplash.com/photo-1466428996289-fb355538da1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80";
-const img06 ="https://images.unsplash.com/photo-1446057032654-9d8885db76c6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2200&q=80";
-const img07 ="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80";
-const img08 ="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1867&q=80";
-const img09 ="https://unsplash.com/photos/wnX-fXzB6Cw";
-const img10 ="https://images.unsplash.com/photo-1508081444780-e2ea2f0b4754?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1848&q=80"; 
+const img03 = "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80";
+const img04 = "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80";
+const img05 = "https://images.unsplash.com/photo-1466428996289-fb355538da1b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80";
+const img06 = "https://images.unsplash.com/photo-1446057032654-9d8885db76c6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2200&q=80";
+const img07 = "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80";
+const img08 = "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1867&q=80";
+const img09 = "https://unsplash.com/photos/wnX-fXzB6Cw";
+const img10 = "https://images.unsplash.com/photo-1508081444780-e2ea2f0b4754?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1848&q=80";
 
 //img array with random picker 
-const imgArr = [img01,img02,img03,img04,img05,img06,img07,img08,img09,img10]
-const pickedImage = imgArr[Math.floor(Math.random()*imgArr.length)];
+const imgArr = [img01, img02, img03, img04, img05, img06, img07, img08, img09, img10]
+const pickedImage = imgArr[Math.floor(Math.random() * imgArr.length)];
 
 
 
@@ -33,18 +33,19 @@ class Query extends Component {
         profiles: null,
         name: "",
         profileDetail: null,
-        sessions: "", 
+        sessions: "",
         location: "",
         gender: "",
         isLooking: "",
         role: "",
         instrument: "",
         style: "",
-   
+        city:"",
+        userState: "",
         showProfiles: false,
         showProfileModal: false
     }
-    
+
 
     componentDidMount() {
         this.loadProfiles();
@@ -55,16 +56,15 @@ class Query extends Component {
         API.getProfiles({
             name: this.state.name,
             location: this.state.location,
-            gender: this.state.gender, 
+            gender: this.state.gender,
             instrument: this.state.instrument,
             style: this.state.style,
 
         })
             .then(res => {
-                //if(instrument === instrumentKey && style === styleKey){
 
                 this.setState({ profiles: res.data })
-                // }
+               
             }).catch(err => console.log(err));
     };
 
@@ -82,12 +82,12 @@ class Query extends Component {
         const { name, value } = event.target;
         this.setState({
             [name]: value,
-           
+
         });
         console.log(name)
     };
 
-    
+
     handleFormSubmit = event => {
         event.preventDefault();
         this.setState({
@@ -99,33 +99,33 @@ class Query extends Component {
         //initialize variables for the query form inputs 
         // const instrumentKey = document.getElementById('instrument-input').value;
         // const styleKey = document.getElementById('style-input').value;
-       console.log('the state now ', this.state);
+        console.log('the state now ', this.state);
 
         // REACT ROUTER CODE TO SET QUERY
-       // let query = "?instrument=" + this.state.instrument + "&style=" + this.state.style;
+        // let query = "?instrument=" + this.state.instrument + "&style=" + this.state.style;
         //console.log(this.props.history)
         this.props.history.push(query)
 
         API.getProfiles({
             instrument: this.state.instrument,
-            style: this.state.style, 
+            style: this.state.style,
             gender: this.state.gender,
-            location: this.state.location
-            // city: this.state.city,
-            // userState: this.state.userState
+            location: this.state.location,
+            city: this.state.city,
+            userState: this.state.userState
         })
-            .then(res => this.setState({ profiles: res.data }))
+            .then(res => this.setState({ profiles: res.data }, console.log(res.data)))
             .catch(err => console.log(err));
-            if(!this.state.profiles){
-                console.log("Loading");
-                // document.getElementById('resTable'),innerHTML="Loading"
-            }
+        if (!this.state.profiles) {
+            console.log("Loading");
+            // document.getElementById('resTable'),innerHTML="Loading"
+        }
 
     };
 
     render() {
         console.log('this.state', this.state);
-        const { profiles, showProfiles, showProfileModal, profileDetail} = this.state;
+        const { profiles, showProfiles, showProfileModal, profileDetail } = this.state;
         return (
             <div>
                 {(showProfileModal &&
@@ -163,7 +163,7 @@ class Query extends Component {
 
                                     <div className="modal-footer">
                                         <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    
+
                                     </div>
                                 </div>
                             </div>
@@ -173,14 +173,16 @@ class Query extends Component {
 
                 )}
                 <Container >
-                    
+
                     <Hero backgroundImage={pickedImage}>
                         <Row>
-                        <h3 className="text-light mx-auto">What are you looking for?</h3>
+                            <h3 className="text-light mx-auto">What are you looking for?</h3>
                         </Row>
                         <Col size="md-12">
-                                <QueryForm handleInputChange={this.handleInputChange} />
-                            </Col>
+                            <QueryForm handleInputChange={this.handleInputChange}
+                                       
+                            />
+                        </Col>
                         <Row>
                             <Col size="md-12">
                                 <button
@@ -194,7 +196,7 @@ class Query extends Component {
 
 
                         </Row>
-                  </Hero>
+                    </Hero>
                     <Row>
 
                         <Col className="profile-table text-light" size="xs-12">
@@ -224,15 +226,15 @@ class Query extends Component {
                                                 </td>
                                                 <td>
                                                     <strong>
-                                                        {profile.city}
+                                                        {profile.location}
                                                     </strong>
                                                 </td>
                                                 <td>
                                                     <strong>
-                                                        {profile.location}
+                                                        {profile.instrument}
                                                     </strong>
                                                 </td>
-                                               
+
                                                 <td>
                                                     <strong>
                                                         {profile.style}
@@ -240,11 +242,10 @@ class Query extends Component {
                                                 </td>
                                                 <td>
                                                     <button
-                                                        
                                                         onClick={(e, profile_id) => this.profileModal(e, profile._id)}
                                                         data-toggle="modal"
                                                         data-target="#exampleModal"
-                                                    >
+                                                        >
                                                         Open Profile
                                                 </button>
                                                 </td>
